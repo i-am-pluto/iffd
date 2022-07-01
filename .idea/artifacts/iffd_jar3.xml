@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="iffd:jar3">
+    <output-path>$PROJECT_DIR$/out/artifacts/iffd_jar3</output-path>
+    <root id="archive" name="iffd.jar">
+      <element id="module-output" name="iffd" />
+    </root>
+  </artifact>
+</component>
