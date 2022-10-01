@@ -9,21 +9,28 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 public class IngredientsRepository {
 
     ArrayList<Ingredient> ingredients;
-
+    private String file;
     public IngredientsRepository() throws IOException, URISyntaxException {
         this.ingredients = new ArrayList<>();
-        String file = "/ingredients.csv";
+        String file = "./ingredients.csv";
+        this.file = file;
         this.setData(file);
     }
 
     private void setData(String fileName) throws IOException, URISyntaxException {
-        InputStream file = getClass().getResourceAsStream(fileName);
+
+//        FileInputStream file = new FileInputStream(fileName);
+        File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+        String inputFilePath = jarFile.getParent() + File.separator + fileName;
+        FileInputStream file = new FileInputStream(inputFilePath);
+//        System.out.println(file);
         BufferedReader br = new BufferedReader(new InputStreamReader(file));
         br.readLine();
         String line = br.readLine();

@@ -2,6 +2,7 @@ package view;
 
 import Model.Ingredient;
 import Model.IngredientsRepository;
+import com.intellij.ui.components.JBScrollPane;
 import templates.IFFDButton;
 import templates.ThreeButtonLayout;
 
@@ -37,6 +38,10 @@ public class SelectIngredients extends JPanel {
         this.add(title, BorderLayout.NORTH);
         this.configureButtons();
 
+//        scrollPane.setBounds(50, 30, 300, 50);
+
+
+
         JPanel buttonPanel = new ThreeButtonLayout(back, useAI, design);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -50,9 +55,9 @@ public class SelectIngredients extends JPanel {
 
         // add the buttons
         JPanel ingredientsPanel = new JPanel();
-        ingredientsPanel.setLayout(new GridLayout(10, 1, 20, 10));
+        ingredientsPanel.setLayout(new GridLayout(10, 1, 20, 5));
         ingredientsPanel.setBackground(Color.white);
-        ingredientsPanel.setBorder(new EmptyBorder(80, 120, 80, 120));
+        ingredientsPanel.setBorder(new EmptyBorder(40, 120, 40, 120));
         for (JComboBox b : this.ingredientButtons) {
             ingredientsPanel.add(b);
         }
@@ -100,7 +105,10 @@ public class SelectIngredients extends JPanel {
                 } catch (URISyntaxException ex) {
                     throw new RuntimeException(ex);
                 }
-                cards.add(designCard,"design");
+
+                JScrollPane scrollPane = new JScrollPane( designCard );
+
+                cards.add(scrollPane,"design");
                 CardLayout c = (CardLayout) cards.getLayout();
                 c.show(cards,"design");
             }
@@ -108,9 +116,33 @@ public class SelectIngredients extends JPanel {
 
         });
         useAI = new IFFDButton("Use AI", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            class SortIng implements Comparator<Ingredient> {
 
+                    // Method
+                    // Sorting in ascending order of roll number
+                    @Override
+                    public int compare(Ingredient a, Ingredient b)
+                    {
+                        String str1 = a.getIngredient();
+                        String str2 = b.getIngredient();
+                        int res = String.CASE_INSENSITIVE_ORDER.compare(str1, str2);
+                        if (res == 0) {
+                            res = str1.compareTo(str2);
+                        }
+                        return res;
+                    }
+                }
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ArrayList<Ingredient>ings = saveData();
+                    ings.sort(new SortIng());
+                    JPanel useAiCard = null;
+                    useAiCard= new Use_ai(cards,ings);
+
+                    cards.add(useAiCard,"useAi");
+                    CardLayout c = (CardLayout) cards.getLayout();
+                    c.show(cards,"useAi");
             }
         });
 

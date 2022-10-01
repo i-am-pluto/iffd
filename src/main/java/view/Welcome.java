@@ -1,13 +1,19 @@
 package view;
 
+import Model.IngredientsRepository;
+import templates.DoubleButtonLayout;
 import templates.IFFDButton;
 import templates.SingleButtonLayout;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Welcome extends JPanel{
@@ -16,6 +22,7 @@ public class Welcome extends JPanel{
     private Container cards;
     JLabel title;
     IFFDButton start;
+    IFFDButton updateIngredients;
     public Welcome(String name, Container cards){
         this.cards = cards;
 
@@ -41,6 +48,8 @@ public class Welcome extends JPanel{
                 System.out.println("here");
             }
         });
+
+
 
         JPanel buttonPanel = new SingleButtonLayout(start);
         this.add(buttonPanel,BorderLayout.SOUTH);

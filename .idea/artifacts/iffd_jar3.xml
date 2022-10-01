@@ -3,6 +3,12 @@
     <output-path>$PROJECT_DIR$/out/artifacts/iffd_jar3</output-path>
     <root id="archive" name="iffd.jar">
       <element id="module-output" name="iffd" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.8.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:11" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:linux:11" />
+      <element id="library" level="application" name="Maven: org.openjfx:javafx-base:11" />
+      <element id="module-source" name="iffd" />
+      <element id="dir-copy" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11" />
     </root>
   </artifact>
 </component>

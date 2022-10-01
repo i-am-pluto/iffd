@@ -54,6 +54,7 @@ public class Finalize extends JPanel {
         this.configureTitle();
         this.add(title,BorderLayout.NORTH);
 
+
         this.configureButtons();
         JPanel buttonPanel = new DoubleButtonLayout(back,download);
         this.add(buttonPanel, BorderLayout.SOUTH);
@@ -96,7 +97,7 @@ public class Finalize extends JPanel {
         headerRow.setLayout(new GridLayout(1,4,0,0));
         for(i=0;i<4;i++){
             JPanel col = new JPanel();
-            Border line2 = new LineBorder(Color.BLACK,5);
+            Border line2 = new LineBorder(Color.BLACK,3);
             col.setBorder(line2);
             JLabel colData = new JLabel(columnNames[i]);
             colData.setFont(new Font("Calibri", Font.BOLD, 12));
@@ -110,7 +111,7 @@ public class Finalize extends JPanel {
             row.setLayout(new GridLayout(1,4,0,0));
             for(i=0;i<4;i++){
                 JPanel col = new JPanel();
-                Border line2 = new LineBorder(Color.BLACK,2);
+                Border line2 = new LineBorder(Color.BLACK,1);
                 col.setBorder(line2);
                 JLabel colData = new JLabel(d[i]);
                 colData.setFont(new Font("Calibri", Font.PLAIN, 10));
@@ -120,8 +121,8 @@ public class Finalize extends JPanel {
             table.add(row);
         }
 
-        Border line = new LineBorder(Color.BLACK,2);
-        Border margin = new EmptyBorder(20, 80, 20, 80);
+        Border line = new LineBorder(Color.BLACK,1);
+        Border margin = new EmptyBorder(10, 80, 10, 80);
         Border compound = new CompoundBorder(margin,line);
         table.setBorder(compound);
 

@@ -8,11 +8,10 @@ public class App {
 
         MainFrame main = new MainFrame();
         main.setTitle("Interactive Fish Feed Designer");
-        main.setSize(800, 950);
+        main.setSize(800, 600);
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         main.setVisible(true);
         main.setLocationRelativeTo(null);
-
         ImageIcon image = new ImageIcon("logo.png");
         main.setIconImage(image.getImage());
     }

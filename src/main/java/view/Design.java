@@ -73,13 +73,22 @@ public class Design extends JPanel {
         this.ingredients = ingredients;
         this.cache = new HashMap<>();
 
+
+
+
         if(ingredients!=null){
             final double[] change = {0};
             ingredients.forEach(ingredient -> {
                 double v = ((double)100)/ingredients.size();
-                ingredientPercentage.put(ingredient, (double) Math.round(v));
-                change[0] +=Math.abs(v-Math.round(v));
+                // v = 16.667
+                System.out.println("v -> "+v);
+                ingredientPercentage.put(ingredient, (double) ((int) v));
+                System.out.println("vaue -> "+(double) ((int) v));
+                // 16
+                change[0] +=Math.abs(v-(double)((int)v));
             });
+            System.out.println(change[0]);
+            //
             change[0] = Math.round(change[0]);
             for(Ingredient ingredient: ingredientPercentage.keySet()){
 
@@ -116,12 +125,14 @@ public class Design extends JPanel {
         JPanel centerPanel = configureCenterPanel();
         this.add(centerPanel, BorderLayout.CENTER);
 
+
+
     }
 
     private JPanel configureCenterPanel() {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BorderLayout());
-        centerPanel.setBorder(new EmptyBorder(80, 120, 80, 120));
+        centerPanel.setBorder(new EmptyBorder(40, 120, 40, 120));
         JPanel ingsPanel = new JPanel();
         ingsPanel.setLayout(new GridLayout(ingredients.size()+1, 1));
         JPanel newP = new JPanel();
@@ -130,7 +141,7 @@ public class Design extends JPanel {
         ingsPanel.add(newP);
         this.ingredients.forEach(ingredient -> {
             JPanel eachIngredient = new JPanel();
-            eachIngredient.setBounds(100, 50, 80, 20);
+//            eachIngredient.setBounds(100, 50, 80, 20);
             eachIngredient.setLayout(new GridLayout(1, 2));
             eachIngredient.setBorder(new EmptyBorder(3, 10, 3, 10));
             JLabel ingredientName = new JLabel(ingredient.getIngredient());
@@ -197,17 +208,14 @@ public class Design extends JPanel {
                             hm.add(newel);
                         }
                         while(change>0) {
-                            hm.sort(new Comparator<Nv>() {
-                                @Override
-                                public int compare(Nv o1, Nv o2) {
-                                    if (o1.getValue()== o2.getValue())
-                                        return 0;
-                                    else if (o1.getValue()< o2.getValue())
-                                        return 1;
-                                    else
-                                        return -1;
+                            hm.sort((o1, o2) -> {
+                                if (o1.getValue()== o2.getValue())
+                                    return 0;
+                                else if (o1.getValue()< o2.getValue())
+                                    return 1;
+                                else
+                                    return -1;
 
-                                }
                             });
                             hm.get(0).setValue(hm.get(0).getValue()-1);
                             if(hm.get(0).getValue() <0){
@@ -324,7 +332,6 @@ public class Design extends JPanel {
             button_and_input.add(lock_unlock);
             eachIngredient.add(button_and_input);
             ingsPanel.add(eachIngredient);
-            System.out.println(inputField.getHeight());
         });
 
         this.setResultLabels();
@@ -370,14 +377,14 @@ public class Design extends JPanel {
         finalize = new IFFDButton("Finalize", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 JPanel finalize1 = null;
                 try {
                     finalize1 = new Finalize(cards,ingredientPercentage);
                 } catch (IOException | URISyntaxException ex) {
                     throw new RuntimeException(ex);
                 }
-                cards.add(finalize1,"finalize");
+                JScrollPane scrollPane = new JScrollPane( finalize1);
+                cards.add(scrollPane,"finalize");
                 CardLayout c = (CardLayout) cards.getLayout();
                 c.show(cards,"finalize");
             }
